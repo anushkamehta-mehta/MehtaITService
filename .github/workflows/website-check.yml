@@ -34,3 +34,8 @@ jobs:
 
       - name: Show successful validation
         run: echo "All required website files passed validation!"
+
+      - name: Show branch information
+        run: |
+          echo "Workflow triggered for branch: $GITHUB_REF_NAME"
+          echo "Commit: $GITHUB_SHA"
