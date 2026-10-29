@@ -21,13 +21,16 @@ jobs:
       - name: Get repository files
         uses: actions/checkout@v4
 
-      - name: Check website files
+      - name: Check required website files
         run: |
-          test -f index.html
-          test -f about.html
-          test -f services.html
-          test -f team.html
-          test -f contact.html
-          test -f style.css
-          test -f script.js
-          echo "All required website files exist!"
+          set -eu
+          for file in index.html about.html services.html team.html contact.html style.css script.js; do
+            if [ ! -s "$file" ]; then
+              echo "ERROR: $file is missing or empty"
+              exit 1
+            fi
+            echo "OK: $file exists and is not empty"
+          done
+
+      - name: Show successful validation
+        run: echo "All required website files passed validation!"
