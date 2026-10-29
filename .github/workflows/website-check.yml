@@ -1,0 +1,33 @@
+
+name: Website Checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-website:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get repository files
+        uses: actions/checkout@v4
+
+      - name: Check website files
+        run: |
+          test -f index.html
+          test -f about.html
+          test -f services.html
+          test -f team.html
+          test -f contact.html
+          test -f style.css
+          test -f script.js
+          echo "All required website files exist!"
